@@ -17,7 +17,7 @@ public class DataTypes: MonoBehaviour {
 
     
 //참고.. 태그의 사용 예시 - 충돌 처리
-private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         string tag = collision.gameObject.tag;
         //tag는 이렇게 충돌처리하는데에 종종 사용된다고 하심.
@@ -72,7 +72,7 @@ private void OnCollisionEnter(Collision collision)
 
 
         //value & ref
-        Transform tran = TransformRefValue(transform);
+       // Transform tran = TransformRefValue(transform);
 
         //enum
         Direction myDirection = Direction.North;
