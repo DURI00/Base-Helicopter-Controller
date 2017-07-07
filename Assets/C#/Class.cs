@@ -185,14 +185,16 @@ public class Class : MonoBehaviour
 
         //과일 생성.. but 난 이미 에너미로 했으니 주석처리
 
-/*        List<Fruit> fruits = new List<Fruit>();
-        for (int i = 0; i < 10; i++) 
-            fruits.Add(new Fruit("black"));
-        foreach(Fruit fruit in fruits)
+        List<Apple> apples = new List<Apple>();
+        for (int i = 0; i < 10; i++)
+            apples.Add(new Apple());
+        foreach(Apple apple in apples)
         {
-            fruit.SayHello();
+            apple.SayHello();
         }
-        this.gameObject.GetComponent<Renderer>().material.color = Color.black;
-*/
+        //안먹히네?
+        //this.gameObject.GetComponent<Renderer>().material.color = Color.black;
+        //this.gameObject.GetComponent<Rigidbody>().mass += 99999;
+
     }
 }
