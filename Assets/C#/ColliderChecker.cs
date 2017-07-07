@@ -19,7 +19,22 @@ public class ColliderChecker : MonoBehaviour {
         Debug.Log("OnCollisionEnter");
         if (collision.gameObject.tag == "Enemy")// && gameObject.tag == "Player")
             collision.gameObject.SetActive(false);
+
+        // 운석이 벽에 충돌한 경우, 폭발처리
+        if(this.gameObject.tag == "Meteor")
+        {
+            //this.gameObject.transform.GetChild(0).gameObject.SetActive(true); //SetActive로 제어하면, 단발성이기 때문에,,, 변경
+            
+            //폭발 오브젝트 생성
+            GameObject explosion = GameObject.Instantiate(GameObject.Find("Explosion"), this.transform.position, Quaternion.identity);
+
+            //운석 제거
+            this.gameObject.SetActive(false);
+
+        }
+
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("onTriggerEnter");

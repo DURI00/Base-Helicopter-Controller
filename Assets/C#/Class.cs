@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Class : MonoBehaviour
 {
+    public GameObject meteor;
     //This is the base class which is
     //also known as the Parent class.
     public class Fruit
@@ -64,12 +65,33 @@ public class Class : MonoBehaviour
             //is passed as an argument.
             Debug.Log("2nd Apple Constructor Called");
         }
+
+
+        public void Instantiate()
+        {
+            GameObject goMeteor = GameObject.Instantiate(GameObject.Find("Meteor"),
+                new Vector3(Random.Range(-40f, 40f), 40f, Random.Range(-40f, 40f)), Quaternion.identity);
+
+
+            float mag = 100f;
+
+            goMeteor.transform.rotation = Quaternion.Euler(new Vector3(Random.value * 15, -1f, Random.value * 15));
+            goMeteor.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(Random.Range(mag, -1*mag), -3000f, Random.Range(mag, -1 * mag)), ForceMode.Acceleration);
+
+            //충돌처리해보자~
+            goMeteor.AddComponent<ColliderChecker>();
+
+
+            //goMeteor.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+
+
         override public void SayHello()
         {
             Debug.Log("Hello, I am a fruit.");
             //코드 상에서 Object 생성하기
             GameObject cylinder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            cylinder.transform.position = new Vector3(2, -1, 0);
+            cylinder.transform.position = new Vector3(Random.Range(-20f, 20f), Random.Range(-20f, 20f), 0);
             //생성된 실린더 오브젝트에서 렌더러 컴포넌트를 가져와서, 렌더러의 색상을 변경한다.
             cylinder.GetComponent<Renderer>().material.color = Color.red;
 
@@ -97,15 +119,21 @@ public class Class : MonoBehaviour
             {
                 enemyRdb[i].useGravity = false;
             }
-            new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0);
+           // new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0);
 
             //실린더형에 박스형 콜라이더를 추가해 봄...(컴포넌트 추가 명령어도 있다!)
             cylinder.AddComponent<BoxCollider>();
-            cylinder.AddComponent<Rigidbody>();
-            
+            Rigidbody crd = cylinder.AddComponent<Rigidbody>();
+
+            //0707 실린더들을 AddForce하여 랜덤방향으로 이동시킴.(HelicopterController.cs 참고)
+            cylinder.transform.rotation = Quaternion.Euler(new Vector3(Random.value*1000, Random.value * 1000, Random.value * 1000));
+            crd.AddRelativeForce(new Vector3(Random.value * 50, Random.value * 50, Random.value * 50), ForceMode.Impulse);
+            crd.useGravity = false;
+        
             //monobehavior을 상속받는 모든 클래스들은 컴포넌트로 취급할 수 있다.
             //이와 같이 ColliderChecker 클래스를 컴포넌트로 추가하여 사용할 수 있음을 보인다.
             cylinder.AddComponent<ColliderChecker>();
+          
 
 
             //태그 별로 처리
@@ -181,7 +209,8 @@ public class Class : MonoBehaviour
         //of the public methods of class Fruit.
         myApple.SayHello();//public class Fruit.SayHello() 호출
         myApple.Chop();//public class Fruit.Chop() 호출 #color는 Apple(string newColor) 호출시 green 넣었기 때문에 green 출력
-
+        
+        
 
         //과일 생성.. but 난 이미 에너미로 했으니 주석처리
 
@@ -190,6 +219,7 @@ public class Class : MonoBehaviour
             apples.Add(new Apple());
         foreach(Apple apple in apples)
         {
+            apple.Instantiate();//운석 떨어뜨려보려고 그냥 추가 ㅎㅎ;
             apple.SayHello();
         }
         //안먹히네?
