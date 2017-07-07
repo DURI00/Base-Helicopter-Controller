@@ -222,9 +222,8 @@ public class Class : MonoBehaviour
             apple.Instantiate();//운석 떨어뜨려보려고 그냥 추가 ㅎㅎ;
             apple.SayHello();
         }
-        //안먹히네?
-        //this.gameObject.GetComponent<Renderer>().material.color = Color.black;
-        //this.gameObject.GetComponent<Rigidbody>().mass += 99999;
+
+        
 
     }
 }
